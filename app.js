@@ -2,21 +2,11 @@ var board;
 var human = "O";
 var ai = "X";
 var wybor =  document.getElementsByName('rb');
-var currPlayer;
+var ObecnyGracz;
 
-    
-
-    
-
-
-
-// window.onload = function() {
-//     setGame();
-    
-// }
 
 function setGame() {
-  var elem = document.getElementById('but');
+  var but = document.getElementById('but');
     board = [
                 [' ', ' ', ' '],
                 [' ', ' ', ' '],
@@ -24,7 +14,7 @@ function setGame() {
             ]
     for(i = 0; i < wybor.length; i++) {
         if(wybor[i].checked){
-             currPlayer  = wybor[i].value.toString();
+             ObecnyGracz  = wybor[i].value.toString();
           }
       }    
 
@@ -45,10 +35,10 @@ function setGame() {
             document.getElementById("board").appendChild(tile);
         }
     }
-    if(currPlayer === ai){
+    if(ObecnyGracz === ai){
       najruch(board);
     }
-    elem.parentNode.removeChild(elem);
+    elem.parentNode.removeChild(but);
 }
 let wy_r;
 let wy_c;
@@ -65,26 +55,18 @@ function setTile(){
     let r = parseInt(coords[0]);
     let c = parseInt(coords[1]);
     
-        if(board[r][c] ==! ' '){
-            
-            board[r][c] = currPlayer;
-            this.innerText = currPlayer;
+    if(board[r][c] ==! ' '){      
+      board[r][c] = ObecnyGracz;
+      this.innerText = ObecnyGracz;
            
-        
-    
-            if(prz == null){
-                if(currPlayer == human){
-                    najruch(board);
-            }else{
-                currPlayer = human;
-            }
-            }
-            board.forEach(function(entry) {
-                console.log(entry);
-              });
-              console.log(currPlayer);
+      if(prz == null){
+        if(ObecnyGracz == human){
+            najruch(board);
+        }else{
+            ObecnyGracz = human;
         }
-    console.log("przegrany" + ZaznaczWygranego());
+      }
+    }
 }
 
 
@@ -223,13 +205,10 @@ function najruch(board){
             }
         }
     }
-
-    
     
     board[bestMove.i][bestMove.j] = ai; 
     
-
-    currPlayer = human;
+    ObecnyGracz = human;
     console.log("best move =" + bestMove.i + " " + bestMove.j);
     let temp = document.getElementById(bestMove.i.toString() + "-" + bestMove.j.toString());
     temp.innerText = "X";
