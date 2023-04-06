@@ -252,7 +252,7 @@ function minmax(board, depth, isMaximizaing){
         for (let j = 0; j < 3; j++) {
           if (board[i][j] == ' ') {
             board[i][j] = ai;
-            let score = minmax(board, depth + 1, false);
+            let score = minmax(board, false);
             board[i][j] = ' ';
            if(score > bestScore){
              bestScore = score;
@@ -267,7 +267,7 @@ function minmax(board, depth, isMaximizaing){
         for (let j = 0; j < 3; j++) {
           if (board[i][j] == ' ') {
             board[i][j] = human;
-            let score = minmax(board, depth + 1, true);
+            let score = minmax(board, true);
             board[i][j] = ' ';
             if(score < bestScore){
                 bestScore = score;
