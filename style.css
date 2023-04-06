@@ -23,11 +23,12 @@ hr {
     width: 147px;
     height: 147px;
     
-    /* Text */
+    
     font-size: 150px;
     display: flex;
     justify-content: center; 
-    align-items: center;    
+    align-items: center;
+    
 }
 
 .winner {
@@ -44,3 +45,10 @@ hr {
     border-right: 3px solid black;
 }
 
+#but{
+    width: 70px;
+    height: 25px;
+    border: 1px solid black;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+}

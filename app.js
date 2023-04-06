@@ -1,18 +1,32 @@
 var board;
 var human = "O";
 var ai = "X";
-var currPlayer = human ;
+var wybor =  document.getElementsByName('rb');
+var currPlayer;
 
-window.onload = function() {
-    setGame();
-}
+    
+
+    
+
+
+
+// window.onload = function() {
+//     setGame();
+    
+// }
 
 function setGame() {
+  var elem = document.getElementById('but');
     board = [
                 [' ', ' ', ' '],
                 [' ', ' ', ' '],
                 [' ', ' ', ' ']
             ]
+    for(i = 0; i < wybor.length; i++) {
+        if(wybor[i].checked){
+             currPlayer  = wybor[i].value.toString();
+          }
+      }    
 
     for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
@@ -26,10 +40,15 @@ function setGame() {
                 tile.classList.add("vertical-line");
             }
             tile.innerText = "";
+            
             tile.addEventListener("click", setTile);
             document.getElementById("board").appendChild(tile);
         }
     }
+    if(currPlayer === ai){
+      najruch(board);
+    }
+    elem.parentNode.removeChild(elem);
 }
 let wy_r;
 let wy_c;
@@ -138,6 +157,8 @@ function ZaznaczWygranego(){
     }
   
     if (przegrany == null && openSpots == 0) {
+      window.alert("remis");
+      location.reload();
       return 'tie';
     }else{
         return przegrany;
@@ -203,13 +224,15 @@ function najruch(board){
         }
     }
 
-    let temp = document.getElementById(bestMove.i.toString() + "-" + bestMove.j.toString());
-    temp.innerText = "X";
+    
+    
     board[bestMove.i][bestMove.j] = ai; 
     
 
     currPlayer = human;
     console.log("best move =" + bestMove.i + " " + bestMove.j);
+    let temp = document.getElementById(bestMove.i.toString() + "-" + bestMove.j.toString());
+    temp.innerText = "X";
     bestScore = -Infinity
 }
 let scores = {
