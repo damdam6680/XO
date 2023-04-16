@@ -3,7 +3,7 @@ var human = "O";
 var ai = "X";
 var wybor =  document.getElementsByName('rb');
 var ObecnyGracz;
-
+let AiZaczyna = false;
 
 function setGame() {
   var but = document.getElementById('but');
@@ -15,8 +15,13 @@ function setGame() {
     for(i = 0; i < wybor.length; i++) {
         if(wybor[i].checked){
              ObecnyGracz  = wybor[i].value.toString();
+             if(ObecnyGracz == "X" ){
+                AiZaczyna = true;
+             }
           }
       }    
+
+ 
 
     for (let r = 0; r < 3; r++) {
         for (let c = 0; c < 3; c++) {
@@ -38,7 +43,7 @@ function setGame() {
     if(ObecnyGracz === ai){
       najruch(board);
     }
-    elem.parentNode.removeChild(but);
+    but.parentNode.removeChild(but);
 }
 let wy_r;
 let wy_c;
@@ -67,6 +72,7 @@ function setTile(){
         }
       }
     }
+    ZaznaczWygranego()
 }
 
 
@@ -196,7 +202,8 @@ function najruch(board){
         for(let j = 0; j < 3; j++){
             if(board[i][j] == ' '){
                 board[i][j] = ai;
-                let score = minmax(board, 0, false);
+                
+                let score = minmax(board, false);
                 board[i][j] = ' ';
                 if(score > bestScore){
                     bestScore = score
@@ -215,23 +222,23 @@ function najruch(board){
     bestScore = -Infinity
 }
 let scores = {
-    X: -10,
-    O: 10,
+    X: 10,
+    O: -10,
     tie: 0
   };
-function minmax(board, depth, isMaximizaing){
+function minmax(board, isMaximizaing){
     let result = checkWinner();
     if (result !== null) {
       return scores[result];
     }
-  
     if (isMaximizaing) {
       let bestScore = -Infinity;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-          if (board[i][j] == ' ') {
+          if (board[i][j] === ' ') {
             board[i][j] = ai;
-            let score = minmax(board, false);
+            AiZaczyna = false;
+            let score = minmax(board,false);
             board[i][j] = ' ';
            if(score > bestScore){
              bestScore = score;
@@ -246,7 +253,8 @@ function minmax(board, depth, isMaximizaing){
         for (let j = 0; j < 3; j++) {
           if (board[i][j] == ' ') {
             board[i][j] = human;
-            let score = minmax(board, true);
+            AiZaczyna = true;
+            let score = minmax(board,true);
             board[i][j] = ' ';
             if(score < bestScore){
                 bestScore = score;
